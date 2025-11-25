@@ -1,0 +1,159 @@
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FiMapPin, FiSearch, FiShoppingCart, FiMenu } from "react-icons/fi";
+
+const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchText, setSearchText] = useState(""); // 🔍 texto de búsqueda
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const isConstruccionPage = location.pathname === "/construccion";
+
+  // Categorías para el menú
+  const categorias = [
+    { id: "obra-gruesa", label: "Obra gruesa y perimetral" },
+    { id: "estructuras", label: "Estructuras" },
+    { id: "techos", label: "Techos, Aislación y Cubiertas" },
+    { id: "terminaciones", label: "Terminaciones" },
+    { id: "herramientas", label: "Herramientas y Maquinarias" },
+    { id: "electricidad", label: "Electricidad / Iluminación" },
+    { id: "plomeria", label: "Plomería / Gasfitería" },
+    { id: "jardin", label: "Jardín / Exterior" },
+  ];
+
+  // 🔎 Índice simple de búsqueda: palabras clave -> ruta
+  const searchIndex = [
+    {
+      keywords: ["cemento", "polpaico"],
+      path: "/categorias/obra-gruesa/cemento",
+    },
+    {
+      keywords: ["zinc", "plancha", "zincalum"],
+      path: "/categorias/techos/plancha-zinc",
+    },
+    // aquí agregas más subfamilias/productos
+    // {
+    //   keywords: ["bloque", "bloques"],
+    //   path: "/categorias/obra-gruesa/bloques",
+    // },
+  ];
+
+  const handleSearch = () => {
+    const q = searchText.trim().toLowerCase();
+    if (!q) return;
+
+    const match = searchIndex.find((item) =>
+      item.keywords.some((k) => q.includes(k))
+    );
+
+    if (match) {
+      navigate(match.path);
+      setMenuOpen(false);
+    } else {
+      console.log("🔍 Sin resultados para:", q);
+      // aquí podrías setear un estado para mostrar mensaje en pantalla
+    }
+  };
+
+  return (
+    <>
+      <header className="w-full text-white">
+        {/* --- Fila superior con DEGRADADO CORPORATIVO --- */}
+        <div className="bg-gradient-to-r from-black via-gray-800 to-black">
+          <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+            {/* Logo */}
+            <div>
+              <img
+                src={
+                  isConstruccionPage
+                    ? "./images/logo solucenter construcción blanco.png"
+                    : "./images/logo ferretería blanco.png"
+                }
+                alt="Solucenter"
+                className="w-40 md:w-56 cursor-pointer object-contain"
+                onClick={() => navigate("/")}
+              />
+            </div>
+
+            {/* Acciones derechas */}
+            <div className="flex items-center gap-3">
+              {/* Botón ubicación */}
+              <button className="flex items-center gap-2 px-3 py-2 text-gray-100 text-sm rounded-md hover:bg-gray-600/40">
+                <FiMapPin className="text-lg" />
+                <span>Ingresa tu ubicación</span>
+              </button>
+
+              {/* Carrito */}
+              <button className="p-2 rounded-md hover:bg-gray-600/50">
+                <FiShoppingCart className="text-xl text-gray-100" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* --- Fila inferior (buscador + categorías) --- */}
+        <div className="w-full bg-gray-100 py-2">
+          <div className="container mx-auto px-4 flex items-center gap-4">
+            {/* Categorías */}
+            <button
+              onClick={toggleMenu}
+              className="flex items-center gap-2 px-3 py-2 bg-white rounded-md hover:bg-gray-200 text-gray-900"
+            >
+              <FiMenu className="text-lg" />
+              <span className="font-semibold uppercase text-sm">
+                Categorías
+              </span>
+            </button>
+
+            {/* Buscador */}
+            <div className="flex items-center flex-1 bg-white px-3 py-2 rounded-md border border-gray-300">
+              <input
+                type="text"
+                placeholder="Buscar en Solucenter"
+                className="flex-1 outline-none bg-transparent text-sm text-gray-800 placeholder:text-gray-500"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
+              />
+              <button type="button" onClick={handleSearch} className="p-1 ml-1">
+                <FiSearch className="text-gray-600 text-lg" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* --- MENÚ DE CATEGORÍAS DESPLEGABLE --- */}
+      {menuOpen && (
+        <section className="w-full bg-white border-t shadow-sm">
+          <div className="container mx-auto px-4 py-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center text-gray-800">
+              {categorias.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    navigate(`/categorias/${cat.id}`);
+                    setMenuOpen(false);
+                  }}
+                  className="flex flex-col items-center gap-2 hover:opacity-90"
+                >
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-200" />
+                  <span className="text-xs sm:text-sm italic">{cat.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  );
+};
+
+export default Header;

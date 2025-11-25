@@ -1,0 +1,56 @@
+// src/components/HomePage.test.jsx
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import HomePage from "./HomePage";
+import { vi } from "vitest";
+
+describe("HomePage", () => {
+  beforeEach(() => {
+    vi.useFakeTimers(); // Simula los temporizadores
+  });
+
+  afterEach(() => {
+    vi.useRealTimers(); // Restaura los temporizadores reales
+  });
+
+  it("debería mostrar el Preloader al inicio", () => {
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId("preloader")).toBeInTheDocument();
+  });
+
+  it("debería ocultar el Preloader después de 3 segundos", async () => {
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    vi.advanceTimersByTime(3000); // Avanza el tiempo simulado
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("preloader")).not.toBeInTheDocument();
+    });
+  });
+
+  it("debería mostrar Header y Formulario después del Preloader", async () => {
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    vi.advanceTimersByTime(3000);
+
+    await waitFor(() => {
+      // Usa expresiones regulares por si cambia ligeramente el texto
+      expect(screen.getByText(/cotiz/i)).toBeInTheDocument();
+      expect(screen.getByText(/redes/i)).toBeInTheDocument();
+    });
+  });
+});
