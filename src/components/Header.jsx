@@ -13,14 +13,46 @@ const Header = () => {
   const isConstruccionPage = location.pathname === "/construccion";
 
   const categorias = [
-    { id: "obra-gruesa", label: "Obra gruesa y perimetral" },
-    { id: "estructuras", label: "Estructuras" },
-    { id: "techos", label: "Techos, Aislación y Cubiertas" },
-    { id: "terminaciones", label: "Terminaciones" },
-    { id: "herramientas", label: "Herramientas y Maquinarias" },
-    { id: "electricidad", label: "Electricidad / Iluminación" },
-    { id: "plomeria", label: "Plomería / Gasfitería" },
-    { id: "jardin", label: "Jardín / Exterior" },
+    {
+      id: "obra-gruesa",
+      label: "Obra gruesa y perimetral",
+      image: "/images/obra_gruesa.jpg",
+    },
+    {
+      id: "estructuras",
+      label: "Estructuras",
+      image: "/images/estructuras-acero.jpg",
+    },
+    {
+      id: "techos",
+      label: "Techos, Aislación y Cubiertas",
+      image: "/images/techos.jpg",
+    },
+    {
+      id: "terminaciones",
+      label: "Terminaciones",
+      image: "/images/terminaciones.webp",
+    },
+    {
+      id: "herramientas",
+      label: "Herramientas y Maquinarias",
+      image: "/images/herramientas.webp",
+    },
+    {
+      id: "electricidad",
+      label: "Electricidad / Iluminación",
+      image: "/images/electricidad.png",
+    },
+    {
+      id: "plomeria",
+      label: "Plomería / Gasfitería",
+      image: "/images/plomeria.jpg",
+    },
+    {
+      id: "jardin",
+      label: "Jardín / Exterior",
+      image: "/images/jardin.webp",
+    },
   ];
 
   const searchIndex = [
@@ -82,7 +114,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Fila inferior (buscador + categorías) */}
+        {/* Fila inferior */}
         <div className="w-full bg-gray-100 py-2">
           <div
             className="
@@ -93,7 +125,7 @@ const Header = () => {
               gap-2 sm:gap-4
             "
           >
-            {/* Categorías */}
+            {/* Botón Categorías */}
             <button
               onClick={toggleMenu}
               className="flex items-center gap-2 px-3 py-2 bg-white rounded-md hover:bg-gray-200 text-gray-900 shrink-0"
@@ -138,7 +170,19 @@ const Header = () => {
                   }}
                   className="flex flex-col items-center gap-2 hover:opacity-90"
                 >
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-200" />
+                  {/* IMAGEN DE LA CATEGORÍA */}
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-gray-200">
+                    {cat.image ? (
+                      <img
+                        src={cat.image}
+                        alt={cat.label}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full" />
+                    )}
+                  </div>
+
                   <span className="text-xs sm:text-sm italic">{cat.label}</span>
                 </button>
               ))}
