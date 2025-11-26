@@ -4,7 +4,7 @@ import { FiMapPin, FiSearch, FiShoppingCart, FiMenu } from "react-icons/fi";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchText, setSearchText] = useState(""); // 🔍 texto de búsqueda
+  const [searchText, setSearchText] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -12,7 +12,6 @@ const Header = () => {
 
   const isConstruccionPage = location.pathname === "/construccion";
 
-  // Categorías para el menú
   const categorias = [
     { id: "obra-gruesa", label: "Obra gruesa y perimetral" },
     { id: "estructuras", label: "Estructuras" },
@@ -24,7 +23,6 @@ const Header = () => {
     { id: "jardin", label: "Jardín / Exterior" },
   ];
 
-  // 🔎 Índice simple de búsqueda: palabras clave -> ruta
   const searchIndex = [
     {
       keywords: ["cemento", "polpaico"],
@@ -34,11 +32,6 @@ const Header = () => {
       keywords: ["zinc", "plancha", "zincalum"],
       path: "/categorias/techos/plancha-zinc",
     },
-    // aquí agregas más subfamilias/productos
-    // {
-    //   keywords: ["bloque", "bloques"],
-    //   path: "/categorias/obra-gruesa/bloques",
-    // },
   ];
 
   const handleSearch = () => {
@@ -54,17 +47,15 @@ const Header = () => {
       setMenuOpen(false);
     } else {
       console.log("🔍 Sin resultados para:", q);
-      // aquí podrías setear un estado para mostrar mensaje en pantalla
     }
   };
 
   return (
     <>
       <header className="w-full text-white">
-        {/* --- Fila superior con DEGRADADO CORPORATIVO --- */}
+        {/* Fila superior */}
         <div className="bg-gradient-to-r from-black via-gray-800 to-black">
           <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-            {/* Logo */}
             <div>
               <img
                 src={
@@ -78,15 +69,12 @@ const Header = () => {
               />
             </div>
 
-            {/* Acciones derechas */}
             <div className="flex items-center gap-3">
-              {/* Botón ubicación */}
               <button className="flex items-center gap-2 px-3 py-2 text-gray-100 text-sm rounded-md hover:bg-gray-600/40">
                 <FiMapPin className="text-lg" />
                 <span>Ingresa tu ubicación</span>
               </button>
 
-              {/* Carrito */}
               <button className="p-2 rounded-md hover:bg-gray-600/50">
                 <FiShoppingCart className="text-xl text-gray-100" />
               </button>
@@ -94,13 +82,21 @@ const Header = () => {
           </div>
         </div>
 
-        {/* --- Fila inferior (buscador + categorías) --- */}
+        {/* Fila inferior (buscador + categorías) */}
         <div className="w-full bg-gray-100 py-2">
-          <div className="container mx-auto px-4 flex items-center gap-4">
+          <div
+            className="
+              container mx-auto 
+              px-3 sm:px-4 
+              flex flex-col sm:flex-row 
+              items-stretch sm:items-center 
+              gap-2 sm:gap-4
+            "
+          >
             {/* Categorías */}
             <button
               onClick={toggleMenu}
-              className="flex items-center gap-2 px-3 py-2 bg-white rounded-md hover:bg-gray-200 text-gray-900"
+              className="flex items-center gap-2 px-3 py-2 bg-white rounded-md hover:bg-gray-200 text-gray-900 shrink-0"
             >
               <FiMenu className="text-lg" />
               <span className="font-semibold uppercase text-sm">
@@ -117,9 +113,7 @@ const Header = () => {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearch();
-                  }
+                  if (e.key === "Enter") handleSearch();
                 }}
               />
               <button type="button" onClick={handleSearch} className="p-1 ml-1">
@@ -130,7 +124,7 @@ const Header = () => {
         </div>
       </header>
 
-      {/* --- MENÚ DE CATEGORÍAS DESPLEGABLE --- */}
+      {/* Menú categorías */}
       {menuOpen && (
         <section className="w-full bg-white border-t shadow-sm">
           <div className="container mx-auto px-4 py-8">
