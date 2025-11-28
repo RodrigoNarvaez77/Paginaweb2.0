@@ -60,7 +60,9 @@ const HomePage = () => {
         {loading && (
           <motion.div
             key="preloader"
-            className="fixed inset-0 flex items-center justify-center bg-gray-900 z-50"
+            className="fixed inset-0 flex items-center justify-center 
+             bg-gradient-to-r from-[#0a6a2e] via-[#0b7a34] to-[#0a6a2e] 
+             z-50"
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}
