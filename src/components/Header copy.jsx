@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FiMapPin, FiSearch, FiShoppingCart, FiMenu } from "react-icons/fi";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -82,20 +82,19 @@ const Header = () => {
     }
   };
 
-  // ⚠️ Cambia estas rutas a las versiones en negro de tu logo si las tienes
-  const logoSrc = isConstruccionPage
-    ? "./images/logo solucenter construcción blanco.png"
-    : "./images/logo ferretería blanco.png";
-
   return (
     <>
-      <header className="w-full text-gray-900">
-        {/* Fila superior: fondo blanco */}
-        <div className="bg-white border-b">
-          <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+      <header className="w-full text-white">
+        {/* Fila superior */}
+        <div className="bg-gradient-to-r from-black via-gray-800 to-black">
+          <div className="container mx-auto px-4 py-3 flex items-center justify-between">
             <div>
               <img
-                src={logoSrc}
+                src={
+                  isConstruccionPage
+                    ? "./images/logo solucenter construcción blanco.png"
+                    : "./images/logo ferretería blanco.png"
+                }
                 alt="Solucenter"
                 className="w-40 md:w-56 cursor-pointer object-contain"
                 onClick={() => navigate("/")}
@@ -103,20 +102,20 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 px-3 py-2 text-sm rounded-md text-gray-800 hover:bg-gray-100">
+              <button className="flex items-center gap-2 px-3 py-2 text-gray-100 text-sm rounded-md hover:bg-gray-600/40">
                 <FiMapPin className="text-lg" />
                 <span>Ingresa tu ubicación</span>
               </button>
 
-              <button className="p-2 rounded-md hover:bg-gray-100">
-                <FiShoppingCart className="text-xl text-gray-900" />
+              <button className="p-2 rounded-md hover:bg-gray-600/50">
+                <FiShoppingCart className="text-xl text-gray-100" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Fila inferior: barra verde */}
-        <div className="w-full bg-green-700 py-2">
+        {/* Fila inferior */}
+        <div className="w-full bg-gray-100 py-2">
           <div
             className="
               container mx-auto 
@@ -129,16 +128,12 @@ const Header = () => {
             {/* Botón Categorías */}
             <button
               onClick={toggleMenu}
-              className="
-                flex items-center gap-2 
-                px-3 py-2 
-                text-white 
-                font-semibold uppercase text-sm 
-                shrink-0
-              "
+              className="flex items-center gap-2 px-3 py-2 bg-white rounded-md hover:bg-gray-200 text-gray-900 shrink-0"
             >
               <FiMenu className="text-lg" />
-              <span>CATEGORÍAS</span>
+              <span className="font-semibold uppercase text-sm">
+                Categorías
+              </span>
             </button>
 
             {/* Buscador */}
@@ -154,7 +149,7 @@ const Header = () => {
                 }}
               />
               <button type="button" onClick={handleSearch} className="p-1 ml-1">
-                <FiSearch className="text-gray-800 text-lg" />
+                <FiSearch className="text-gray-600 text-lg" />
               </button>
             </div>
           </div>
@@ -175,6 +170,7 @@ const Header = () => {
                   }}
                   className="flex flex-col items-center gap-2 hover:opacity-90"
                 >
+                  {/* IMAGEN DE LA CATEGORÍA */}
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-gray-200">
                     {cat.image ? (
                       <img

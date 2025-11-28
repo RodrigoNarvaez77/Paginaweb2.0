@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import eventBus from "../utils/eventBus"; // Asegúrate de tener este módulo creado
+import eventBus from "../utils/eventBus";
 
 const Formulario = ({ backgroundImage }) => {
   const [formData, setFormData] = useState({
@@ -47,10 +47,15 @@ const Formulario = ({ backgroundImage }) => {
         })
           .then((res) => {
             if (!res.ok) throw new Error("Error al guardar en el backend");
-            console.log("📬 Cotización guardada en la base de datos");
+            console.log(
+              "📬 Cotización guardada en la base de datos / 📬 Quote saved in database"
+            );
           })
           .catch((err) => {
-            console.error("❌ Error al guardar en backend:", err);
+            console.error(
+              "❌ Error al guardar en backend / ❌ Error saving in backend:",
+              err
+            );
             eventBus.emit(
               "form:warning",
               "El correo fue enviado, pero no se guardó en la base de datos."
@@ -60,89 +65,159 @@ const Formulario = ({ backgroundImage }) => {
       .catch(() => {
         eventBus.emit("form:error", "Error al enviar el formulario.");
       })
-
       .finally(() => {
         setLoading(false);
       });
   };
 
   return (
-    <section
-      className="w-full min-h-screen bg-no-repeat bg-cover bg-center aspect-[4/3] md:aspect-auto flex items-center justify-center"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="flex flex-grow items-center justify-start p-6 sm:ml-10 lg:ml-20">
-        <div className="w-full max-w-lg bg-opacity-80 bg-gray-800 p-8 rounded-lg shadow-xl overflow-hidden">
-          <h2
-            className="text-3xl font-bold text-white mb-6 text-center"
-            id="cotizacion"
-          >
-            Solicita una Cotización
-          </h2>
+    <section className="w-full bg-[#f5f5f5] py-12">
+      {/* --- BARRA MARCAS EXCLUSIVAS full ancho --- */}
+      <div className="w-full bg-[#0b7a34] text-white text-center py-3 font-bold tracking-wide text-lg uppercase">
+        MARCAS EXCLUSIVAS
+      </div>
 
-          <form id="contactForm" onSubmit={enviarFormulario}>
-            {[
-              { id: "nombre", label: "Nombre" },
-              { id: "comuna", label: "Comuna" },
-              { id: "email", label: "Correo Electrónico", type: "email" },
-              { id: "telefono", label: "Teléfono" },
-            ].map(({ id, label, type }) => (
-              <div className="mb-4" key={id}>
-                <label
-                  htmlFor={id}
-                  className="block text-sm font-medium text-white"
-                >
-                  {label}
-                </label>
-                <input
-                  type={type || "text"}
-                  id={id}
-                  name={id}
-                  placeholder={`Tu ${label.toLowerCase()}`}
-                  value={formData[id]}
-                  onChange={handleChange}
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                />
-              </div>
-            ))}
+      {/* --- FRANJA BLANCA full ancho --- */}
+      <div className="w-full bg-white border-b border-[#0b7a34] px-6 py-6 flex flex-wrap justify-center gap-6">
+        <img
+          src="/images/ceresita.png"
+          alt="Ceresita"
+          className="w-40 h-auto object-contain"
+        />
 
-            <div className="mb-4">
-              <label
-                htmlFor="mensaje"
-                className="block text-sm font-medium text-white"
-              >
-                Mensaje
+        <img
+          src="/images/cordillera.jpg"
+          alt="Cordillera"
+          className="w-40 h-auto object-contain"
+        />
+        <img
+          src="/images/Polpaico.png"
+          alt="Polpaico"
+          className="w-40 h-auto object-contain"
+        />
+        <img
+          src="/images/klipen.png"
+          alt="Klipen"
+          className="w-40 h-auto object-contain"
+        />
+        <img
+          src="/images/toyama.png"
+          alt="Toyama"
+          className="w-40 h-auto object-contain"
+        />
+      </div>
+
+      {/* --- BLOQUE VERDE CONTÁCTANOS full ancho --- */}
+      <div className="w-full bg-[#0b7a34] py-14 px-4 sm:px-10 rounded-none">
+        <h2 className="text-3xl font-bold text-center text-white mb-2">
+          CONTÁCTANOS
+        </h2>
+
+        <p className="text-center text-white mb-10">
+          Ingresa tus datos en el formulario:
+        </p>
+
+        {/* FORMULARIO FULL ANCHO */}
+        <form
+          id="contactForm"
+          onSubmit={enviarFormulario}
+          className="w-full max-w-5xl mx-auto space-y-6"
+        >
+          {/* Nombre + Comuna */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label className="text-white text-sm font-medium mb-1 block">
+                Nombre *
               </label>
-              <textarea
-                id="mensaje"
-                name="mensaje"
-                rows="3"
-                placeholder="Detalles de tu consulta"
-                value={formData.mensaje}
+              <input
+                type="text"
+                name="nombre"
+                value={formData.nombre}
                 onChange={handleChange}
+                className="w-full bg-white text-gray-900 px-3 py-2 rounded-sm"
+                placeholder="Tu nombre"
                 required
-                className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              ></textarea>
+              />
             </div>
 
+            <div>
+              <label className="text-white text-sm font-medium mb-1 block">
+                Comuna *
+              </label>
+              <input
+                type="text"
+                name="comuna"
+                value={formData.comuna}
+                onChange={handleChange}
+                className="w-full bg-white text-gray-900 px-3 py-2 rounded-sm"
+                placeholder="Tu comuna"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Email + Teléfono */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label className="text-white text-sm font-medium mb-1 block">
+                Email *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full bg-white text-gray-900 px-3 py-2 rounded-sm"
+                placeholder="Tu correo electrónico"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="text-white text-sm font-medium mb-1 block">
+                Teléfono *
+              </label>
+              <input
+                type="text"
+                name="telefono"
+                value={formData.telefono}
+                onChange={handleChange}
+                className="w-full bg-white text-gray-900 px-3 py-2 rounded-sm"
+                placeholder="Tu teléfono"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Mensaje */}
+          <div>
+            <label className="text-white text-sm font-medium mb-1 block">
+              Mensaje *
+            </label>
+            <textarea
+              name="mensaje"
+              rows="4"
+              value={formData.mensaje}
+              onChange={handleChange}
+              className="w-full bg-white text-gray-900 px-3 py-2 rounded-sm"
+              placeholder="Escribe aquí los detalles de tu consulta"
+              required
+            ></textarea>
+          </div>
+
+          {/* Botón */}
+          <div className="flex justify-center pt-4">
             <button
               type="submit"
               disabled={loading}
-              className={`w-full px-4 py-2 text-white font-semibold rounded-lg ${
-                loading
-                  ? "bg-gray-500 cursor-not-allowed"
-                  : "bg-gradient-to-r from-[#4b4f75] to-[#2d3557] hover:from-[#2d3557] hover:to-[#434762] focus:ring-2 focus:ring-blue-500"
-              }`}
+              className={`min-w-[160px] px-10 py-2 bg-white text-[#0b7a34] font-semibold rounded-sm border border-white
+              ${loading ? "opacity-60 cursor-not-allowed" : "hover:bg-gray-100"}
+            `}
             >
-              {loading ? "Enviando..." : "Enviar Cotización"}
+              {loading ? "Enviando..." : "Enviar"}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </section>
   );

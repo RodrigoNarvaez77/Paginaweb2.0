@@ -2,76 +2,58 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const Despacho = () => {
+  const tiendas = [
+    { nombre: "ARAUCO", telefono: "+569 2623 5712" },
+    { nombre: "O'HIGGINGS - ARAUCO", telefono: "+569 8903 6191" },
+    { nombre: "CAÑETE", telefono: "+569 3953 4037" },
+    { nombre: "HUILLINCO", telefono: "+569 5879 9068" },
+    { nombre: "CURANILAHUE", telefono: "+569 3268 0304" },
+    { nombre: "SANTA JUANA", telefono: "+569 5879 9094" },
+  ];
+
   return (
-    <section className="w-full bg-gradient-to-br from-white via-gray-50 to-white py-20 px-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center rounded-3xl shadow-2xl p-6 md:p-12 bg-white">
-        {/* Imagen con animación */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="order-1 md:order-none"
-        >
-          <img
-            src="/images/despacho.png"
-            alt="Camión de reparto Solucenter"
-            className="w-full h-auto object-cover rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
-          />
-        </motion.div>
+    <section className="w-full bg-[#f5f5f5] py-16">
+      {/* --- TITULO --- */}
+      <h2 className="text-3xl font-extrabold text-center text-[#111] mb-10 tracking-wide">
+        TIENDAS Y HORARIOS
+      </h2>
 
-        {/* Información a la derecha */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-left space-y-6"
-        >
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-6 ml-8">
-            Despacho Gratuito
-          </h2>
+      {/* --- PILLS FULL WIDTH --- */}
+      <div className="w-full flex flex-wrap justify-center gap-8 mb-12 px-4">
+        {tiendas.map((t, idx) => (
+          <div key={idx} className="flex flex-col items-center min-w-[160px]">
+            <div className="px-4 py-1 border border-[#0b7a34] rounded-full text-xs font-semibold text-[#0b7a34] uppercase mb-1 text-center">
+              {t.nombre}
+            </div>
 
-          <ul className="text-gray-700 text-lg leading-relaxed space-y-4">
-            <li>
-              <span className="font-semibold text-gray-900">Zonas:</span>
-              <span
-                className="ml-2"
-                style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
-              >
-                Arauco, O'Higgins, Curanilahue, Cañete, Huillinco, Santa Juana.
-              </span>
-            </li>
+            <a
+              href={`tel:${t.telefono.replace(/\s/g, "")}`}
+              className="px-4 py-2 bg-[#0b7a34] text-white text-sm font-semibold rounded-full shadow-md hover:bg-[#0a6a2e] transition"
+            >
+              {t.telefono}
+            </a>
+          </div>
+        ))}
+      </div>
 
-            <li>
-              <span className="font-semibold text-gray-900">Horarios:</span>
-              <ul className="ml-6 mt-2 space-y-2 list-disc text-gray-600">
-                <li>
-                  <span className="font-semibold text-gray-900">
-                    Lunes a Viernes
-                  </span>
-                  <ul className="ml-4 list-disc">
-                    <li>Arauco, Curanilahue, Cañete: 08:30–18:00 hrs.</li>
-                    <li>Santa Juana, Huillinco: 09:00–18:00 hrs.</li>
-                  </ul>
-                </li>
-                <li>
-                  <span className="font-semibold text-gray-900">Sábados</span>
-                  <ul className="ml-4 list-disc">
-                    <li>Arauco, Curanilahue, Cañete: 09:00–14:00 hrs.</li>
-                    <li>Santa Juana: 09:00–13:00 hrs.</li>
-                    <li>Huillinco: 10:00–14:00 hrs.</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+      {/* --- DESPACHO GRATIS FULL WIDTH --- */}
+      <div className="w-full bg-[#0b7a34] py-3 text-center text-white font-bold tracking-wide uppercase">
+        DESPACHO GRATIS
+      </div>
 
-            <li>
-              Atención personalizada y una amplia variedad de productos con
-              entrega segura y rápida.
-            </li>
-          </ul>
-        </motion.div>
+      {/* --- TARJETA BLANCA FULL WIDTH --- */}
+      <div className="w-full bg-white py-14 text-center px-4">
+        <p className="text-xl font-extrabold">LUNES A VIERNES</p>
+        <p className="mt-1 text-[#333] text-sm sm:text-base">
+          DE 8.30 A 18.00 HRS
+        </p>
+
+        <div className="w-24 h-px bg-gray-300 mx-auto my-8" />
+
+        <p className="text-xl font-extrabold">SÁBADOS</p>
+        <p className="mt-1 text-[#333] text-sm sm:text-base">
+          DE 9.00 A 14.00 HRS
+        </p>
       </div>
     </section>
   );

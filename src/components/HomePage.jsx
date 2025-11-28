@@ -84,7 +84,6 @@ const HomePage = () => {
         <Formulario backgroundImage="/images/fotoprincipal.jpg" />
         <Compromiso />
         <Despacho />
-        <CategoriaFerreteria />
         <Footer />
         <WhatsAppButton />
       </motion.div>
