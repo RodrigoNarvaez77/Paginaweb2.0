@@ -6,7 +6,7 @@ const Preloader = () => {
       {" "}
       {/* Usa solo la clase CSS */}
       <img
-        src="/images/logo ferretería blanco.png" // Asegúrate de que la ruta sea correcta
+        src="/images/logo ferretería blanco2.png" // Asegúrate de que la ruta sea correcta
         alt="logo"
         className="logo" // Usa la clase CSS en lugar de estilos en línea
       />

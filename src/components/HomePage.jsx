@@ -45,7 +45,7 @@ const HomePage = () => {
   }, [loading]);
 
   return (
-    <div className="relative w-full h-screen bg-gray-900">
+    <div className="relative w-full min-h-screen bg-gradient-to-r from-[#0a6a2e] via-[#0b7a34] to-[#0a6a2e]">
       <Helmet>
         <meta
           httpEquiv="Content-Security-Policy"
