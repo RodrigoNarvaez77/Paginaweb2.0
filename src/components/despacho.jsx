@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Despacho = () => {
   const tiendas = [
     { nombre: "ARAUCO", telefono: "+569 2623 5712" },
-    { nombre: "O'HIGGINGS - ARAUCO", telefono: "+569 8903 6191" },
+    { nombre: "O'HIGGINS - ARAUCO", telefono: "+569 8903 6191" },
     { nombre: "CAÑETE", telefono: "+569 3953 4037" },
     { nombre: "HUILLINCO", telefono: "+569 5879 9068" },
     { nombre: "CURANILAHUE", telefono: "+569 3268 0304" },
@@ -42,18 +42,27 @@ const Despacho = () => {
       </div>
 
       {/* --- TARJETA BLANCA FULL WIDTH --- */}
-      <div className="w-full bg-white py-14 text-center px-4">
-        <p className="text-xl font-extrabold">LUNES A VIERNES</p>
-        <p className="mt-1 text-[#333] text-sm sm:text-base">
-          DE 8.30 A 18.00 HRS
-        </p>
+      <div className="w-full bg-white py-14 px-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-10 sm:gap-20 text-center">
+          {/* Lunes a Viernes */}
+          <div>
+            <p className="text-xl font-extrabold">LUNES A VIERNES</p>
+            <p className="mt-1 text-[#333] text-sm sm:text-base">
+              DE 8:30 A 18:00 HRS
+            </p>
+          </div>
 
-        <div className="w-24 h-px bg-gray-300 mx-auto my-8" />
+          {/* Separador vertical */}
+          <div className="hidden sm:block w-px h-14 bg-gray-300"></div>
 
-        <p className="text-xl font-extrabold">SÁBADOS</p>
-        <p className="mt-1 text-[#333] text-sm sm:text-base">
-          DE 9.00 A 14.00 HRS
-        </p>
+          {/* Sábados */}
+          <div>
+            <p className="text-xl font-extrabold">SÁBADOS</p>
+            <p className="mt-1 text-[#333] text-sm sm:text-base">
+              DE 9:00 A 14:00 HRS
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

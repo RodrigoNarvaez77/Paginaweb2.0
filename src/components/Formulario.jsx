@@ -74,7 +74,7 @@ const Formulario = ({ backgroundImage }) => {
     <section className="w-full bg-[#f5f5f5] py-12">
       {/* --- BARRA MARCAS EXCLUSIVAS full ancho --- */}
       <div className="w-full bg-[#0b7a34] text-white text-center py-3 font-bold tracking-wide text-lg uppercase">
-        MARCAS EXCLUSIVAS
+        NUESTRAS MARCAS
       </div>
 
       {/* --- FRANJA BLANCA full ancho --- */}
@@ -110,7 +110,7 @@ const Formulario = ({ backgroundImage }) => {
       {/* --- BLOQUE VERDE CONTÁCTANOS full ancho --- */}
       <div className="w-full bg-[#0b7a34] py-14 px-4 sm:px-10 rounded-none">
         <h2 className="text-3xl font-bold text-center text-white mb-2">
-          CONTÁCTANOS
+          COTIZA CON NOSOTROS
         </h2>
 
         <p className="text-center text-white mb-10">

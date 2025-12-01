@@ -84,7 +84,6 @@ const HomePage = () => {
         <Header />
         <NotificationListener />
         <Formulario backgroundImage="/images/fotoprincipal.jpg" />
-        <Compromiso />
         <Despacho />
         <Footer />
         <WhatsAppButton />
