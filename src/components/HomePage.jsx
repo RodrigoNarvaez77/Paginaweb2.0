@@ -49,7 +49,14 @@ const HomePage = () => {
       <Helmet>
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://cotizador-k8g4.onrender.com https://nodejsasistentevirtual-1.onrender.com; img-src 'self' https: data:; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self' https:;"
+          content="
+      default-src 'self';
+      connect-src 'self' http://localhost:4000 https://www.google-analytics.com https://api.emailjs.com https://cotizador-k8g4.onrender.com https://nodejsasistentevirtual-1.onrender.com;
+      img-src 'self' https: data:;
+      script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline';
+      font-src 'self' https:;
+    "
         />
         <meta name="robots" content="index, follow" />
         <meta charSet="utf-8" />
