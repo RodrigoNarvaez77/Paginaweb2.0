@@ -4,7 +4,7 @@ import HomePage from "./components/HomePage";
 import Construccion from "./components/secciones/Construccion";
 import CategoryPage from "./components/secciones/CategoryPage";
 import SubcategoryPage from "./components/secciones/SubcategoryPage";
-import CartPage from "./components/secciones/CartPage"; // 👈 lo creamos abajo
+import CartPage from "./components/secciones/CartPage";
 
 function App() {
   // 🛒 CARRITO GLOBAL
@@ -46,15 +46,19 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Puedes pasar cart si después quieres mostrar badge con cantidad */}
+        {/* Inicio */}
         <Route path="/" element={<HomePage />} />
 
+        {/* Otra página independiente */}
         <Route path="/construccion" element={<Construccion />} />
 
-        {/* Categoría (círculos grandes) */}
-        <Route path="/categorias/:categoryId" element={<CategoryPage />} />
+        {/* Categoría (ej: /categorias/obra-gruesa, /categorias/techos) */}
+        <Route
+          path="/categorias/:categoryId"
+          element={<CategoryPage addToCart={addToCart} />}
+        />
 
-        {/* Subcategoría (ej: Cemento) */}
+        {/* Subcategoría (ej: /categorias/obra-gruesa/cemento) */}
         <Route
           path="/categorias/:categoryId/:subcategoryId"
           element={<SubcategoryPage onAddToCart={addToCart} />}

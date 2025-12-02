@@ -1,5 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+// 💰 helper para mostrar CLP bonito
+const formatCLP = (value) =>
+  new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
+    maximumFractionDigits: 0,
+  }).format(value || 0);
 
 const CATEGORY_DETAILS = {
   estructuras: {
@@ -42,12 +50,8 @@ const CATEGORY_DETAILS = {
           description:
             "Cemento Polpaico 25 kg ideal para hormigones, morteros y albañilería en obras de construcción general.",
           images: "/images/Cemento_Polpaico.webp",
-          price: "$0",
+          price: 5990,
         },
-      },
-      {
-        id: "bloques",
-        label: "Foto de bloques",
       },
     ],
   },
@@ -78,19 +82,34 @@ const CATEGORY_DETAILS = {
           description:
             "Plancha de zinc galvanizado ideal para techumbres residenciales e industriales.",
           images: "/images/zinc_acanalado.webp",
-          price: "$0",
+          price: 19990,
         },
       },
     ],
   },
 };
 
-const CategoryPage = () => {
+// 👇 acepta addToCart
+const CategoryPage = ({ addToCart }) => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
   const category = CATEGORY_DETAILS[categoryId];
 
+  const [successMessage, setSuccessMessage] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  // si la categoría tiene algún producto destacado, lo seleccionamos por defecto
+  useEffect(() => {
+    if (!category) return;
+    const firstWithProduct = category.highlights.find((h) => h.product);
+    if (firstWithProduct) {
+      setSelectedProduct(firstWithProduct.product);
+      setQuantity(1);
+    } else {
+      setSelectedProduct(null);
+    }
+  }, [categoryId, category]);
 
   if (!category) {
     return (
@@ -103,12 +122,21 @@ const CategoryPage = () => {
     );
   }
 
-  const handleOpenModal = (product) => {
-    setSelectedProduct(product);
-  };
+  const increase = () => setQuantity((q) => q + 1);
+  const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
 
-  const handleCloseModal = () => {
-    setSelectedProduct(null);
+  const handleAddToCart = () => {
+    if (!selectedProduct || !addToCart) return;
+
+    // 👉 solo una vez
+    addToCart(selectedProduct, quantity);
+
+    setSuccessMessage("Producto agregado correctamente ✔️");
+
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
   };
 
   return (
@@ -139,7 +167,6 @@ const CategoryPage = () => {
                   className="flex flex-col items-center gap-3 text-gray-800 hover:opacity-80"
                 >
                   <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-gray-200">
-                    {/* Imagen especial por subcategoría (cemento y plancha zinc) */}
                     {categoryId === "obra-gruesa" && sub.id === "cemento" && (
                       <img
                         src="/images/Cemento_Polpaico.webp"
@@ -163,34 +190,11 @@ const CategoryPage = () => {
               ))}
             </div>
 
-            {/* Destacados */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
+            {/* Destacados (arriba) – solo los que NO tienen product para evitar duplicar */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full mb-10">
               {category.highlights.map((item) => {
-                // Si el destacado tiene product → mostrar como tarjeta clickeable (foto+nombre+precio) tal cual cemento
-                if (item.product) {
-                  const p = item.product;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleOpenModal(p)}
-                      className="flex flex-col items-center hover:opacity-90 transition"
-                    >
-                      <img
-                        src={p.images}
-                        alt={p.name}
-                        className="w-56 h-56 object-contain mb-3"
-                      />
-                      <p className="text-gray-900 font-medium text-sm text-center">
-                        {p.name}
-                      </p>
-                      <p className="text-green-600 font-semibold text-sm">
-                        {p.price ?? "$0"}
-                      </p>
-                    </button>
-                  );
-                }
+                if (item.product) return null; // no duplicar el producto principal
 
-                // Resto de destacados simples
                 return (
                   <div
                     key={item.id}
@@ -203,73 +207,108 @@ const CategoryPage = () => {
                 );
               })}
             </div>
+
+            {/* 💳 Tarjeta de compra fuera del modal */}
+            {selectedProduct && (
+              <div className="mt-8">
+                <div className="bg-gray-50 border border-gray-200 rounded-xl px-6 py-7 max-w-md w-full">
+                  {/* Imagen centrada */}
+                  <div className="flex justify-center mb-4">
+                    <img
+                      src={selectedProduct.images}
+                      alt={selectedProduct.name}
+                      className="w-32 h-32 object-contain"
+                    />
+                  </div>
+
+                  {/* Nombre */}
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">
+                    {selectedProduct.name}
+                  </h2>
+
+                  {/* Precio */}
+                  <p className="text-green-600 font-bold text-sm mb-4">
+                    {formatCLP(selectedProduct.price)}
+                    <span className="text-gray-500 text-xs"> / unidad</span>
+                  </p>
+
+                  {/* Cantidad */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-sm font-medium text-gray-700">
+                      Cantidad
+                    </span>
+
+                    <div className="inline-flex items-center border rounded-lg overflow-hidden">
+                      <button
+                        onClick={decrease}
+                        className="w-8 h-8 text-base flex items-center justify-center hover:bg-gray-100"
+                      >
+                        −
+                      </button>
+
+                      <input
+                        type="number"
+                        min="1"
+                        value={quantity}
+                        onChange={(e) =>
+                          setQuantity(
+                            Number(e.target.value) > 0
+                              ? Number(e.target.value)
+                              : 1
+                          )
+                        }
+                        className="w-14 text-center border-x text-base outline-none"
+                      />
+
+                      <button
+                        onClick={increase}
+                        className="w-8 h-8 text-base flex items-center justify-center hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Total */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-sm font-medium text-gray-800">
+                      Total
+                    </span>
+                    <span className="font-bold text-green-700">
+                      {formatCLP(selectedProduct.price * quantity)}
+                    </span>
+                  </div>
+
+                  {/* Botón agregar */}
+                  <button
+                    onClick={handleAddToCart}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg text-sm font-semibold"
+                  >
+                    Agregar al carrito
+                  </button>
+
+                  {/* Mensaje de éxito */}
+                  {successMessage && (
+                    <p className="text-green-600 text-sm mt-3 text-center">
+                      {successMessage}
+                    </p>
+                  )}
+
+                  {/* Ver carrito */}
+                  <div className="mt-4 text-sm">
+                    <button
+                      onClick={() => navigate("/carrito")}
+                      className="text-blue-700 hover:underline"
+                    >
+                      Ver carrito
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </div>
       </div>
-
-      {/* MODAL DETALLE (misma ficha técnica que en subcategoría) */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-white rounded-lg shadow-xl max-w-xl w-full mx-4 p-6 md:p-8 relative">
-            <button
-              onClick={handleCloseModal}
-              className="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl"
-            >
-              ×
-            </button>
-
-            <h2 className="text-2xl font-bold mb-6">
-              Ficha técnica – {selectedProduct.name}
-            </h2>
-
-            <div className="bg-gray-100 rounded-md p-4 space-y-2 text-sm md:text-base">
-              <div>
-                <span className="font-semibold">Marca:</span>{" "}
-                {selectedProduct.brand}
-              </div>
-              <div>
-                <span className="font-semibold">Tipo de producto:</span>{" "}
-                {selectedProduct.type}
-              </div>
-              <div>
-                <span className="font-semibold">Garantía:</span>{" "}
-                {selectedProduct.warranty}
-              </div>
-              <div>
-                <span className="font-semibold">Color:</span>{" "}
-                {selectedProduct.color}
-              </div>
-              <div>
-                <span className="font-semibold">Material:</span>{" "}
-                {selectedProduct.material}
-              </div>
-              <div>
-                <span className="font-semibold">Modelo:</span>{" "}
-                {selectedProduct.model}
-              </div>
-              <div>
-                <span className="font-semibold">Medidas:</span>{" "}
-                {selectedProduct.measures}
-              </div>
-              <div>
-                <span className="font-semibold">Espesor:</span>{" "}
-                {selectedProduct.thickness}
-              </div>
-              <div>
-                <span className="font-semibold">Piezas por Pallet:</span>{" "}
-                {selectedProduct.piecesPerPallet}
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <h3 className="text-base font-semibold mb-2">Descripción:</h3>
-              <div className="bg-gray-100 rounded-md p-3 text-sm md:text-base text-gray-800">
-                {selectedProduct.description}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 };
