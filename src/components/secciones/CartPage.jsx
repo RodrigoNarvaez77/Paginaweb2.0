@@ -27,23 +27,20 @@ const CartPage = ({ cart, removeFromCart, updateQuantity }) => {
         return;
       }
 
-      const response = await fetch(
-        "https://carritodecompras-aqgw.onrender.com/api/cart/checkout",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            items: cart.map((item) => ({
-              id: item.id,
-              name: item.name,
-              price: Number(item.price),
-              quantity: Number(item.quantity),
-            })),
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:4000/api/cart/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cart.map((item) => ({
+            id: item.id,
+            name: item.name,
+            price: Number(item.price),
+            quantity: Number(item.quantity),
+          })),
+        }),
+      });
 
       const data = await response.json();
 
