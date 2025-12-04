@@ -150,10 +150,13 @@ const CartPage = ({ cart, removeFromCart, updateQuantity }) => {
 
               <div className="mt-6 flex justify-end">
                 <button
-                  onClick={() => navigate("/checkout")}
-                  className="bg-green-600 text-white px-6 py-2 rounded-lg text-sm md:text-base font-semibold hover:bg-green-700 transition"
+                  onClick={handlePay}
+                  disabled={loading}
+                  className={`${
+                    loading ? "opacity-70 cursor-not-allowed" : ""
+                  } bg-green-600 text-white px-6 py-2 rounded-lg text-sm md:text-base font-semibold hover:bg-green-700 transition`}
                 >
-                  Continuar
+                  {loading ? "Redirigiendo a Webpay..." : "Ir a pagar"}
                 </button>
               </div>
             </>

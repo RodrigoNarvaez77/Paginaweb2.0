@@ -5,6 +5,7 @@ import Construccion from "./components/secciones/Construccion";
 import CategoryPage from "./components/secciones/CategoryPage";
 import SubcategoryPage from "./components/secciones/SubcategoryPage";
 import CartPage from "./components/secciones/CartPage";
+import CheckoutForm from "./components/secciones/CheckoutForm";
 
 function App() {
   // 🛒 CARRITO GLOBAL
@@ -75,6 +76,7 @@ function App() {
             />
           }
         />
+        <Route path="/checkout" element={<CheckoutForm cart={cart} />} />
       </Routes>
     </Router>
   );
