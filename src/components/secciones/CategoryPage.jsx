@@ -37,7 +37,7 @@ const CATEGORY_DETAILS = {
           description:
             "Placa de yeso-cartón estándar de 10 mm, ideal para tabiques interiores, cielos y revestimientos.",
           images: "/images/volcanita.jpeg",
-          price: 7990,
+          price: 6390,
         },
       },
       {
@@ -58,7 +58,7 @@ const CATEGORY_DETAILS = {
           description:
             "Terciado ranurado colonial de 9 mm ideal para revestimientos interiores, tabiques y aplicaciones decorativas.",
           images: "/images/terciado.webp",
-          price: 18990,
+          price: 21990,
         },
       },
       {
@@ -79,7 +79,7 @@ const CATEGORY_DETAILS = {
           description:
             "Placa de fibrocemento estándar de 6 mm, ideal para revestimientos exteriores, tabiques estructurales y aplicaciones de alta durabilidad.",
           images: "/images/plancha_fibrocemento.webp",
-          price: 12990,
+          price: 14490,
         },
       },
     ],
@@ -111,7 +111,7 @@ const CATEGORY_DETAILS = {
           description:
             "Cemento Polpaico 25 kg ideal para hormigones, morteros y albañilería en obras de construcción general.",
           images: "/images/Cemento_Polpaico.webp",
-          price: 5990,
+          price: 4290,
         },
       },
       {
@@ -131,7 +131,7 @@ const CATEGORY_DETAILS = {
           description:
             "Cemento Biobío 25 kg ideal para hormigones estructurales y trabajos de albañilería de alta resistencia.",
           images: "/images/cemento-biobio.webp",
-          price: 5890,
+          price: 4390,
         },
       },
       {
@@ -151,7 +151,7 @@ const CATEGORY_DETAILS = {
           description:
             "Cemento Polpaico Alta Resistencia 25 kg ideal para hormigones estructurales, fundaciones y aplicaciones que requieren mayor durabilidad.",
           images: "/images/cemento_polpaico_alta.jpeg",
-          price: 6490,
+          price: 5950,
         },
       },
       {
@@ -171,7 +171,7 @@ const CATEGORY_DETAILS = {
           description:
             "Alambre de púas galvanizado Motto 16 BWG de 275 metros, ideal para cierre perimetral, protección y delimitación de terrenos.",
           images: "/images/alambre_de_puas_motto.webp",
-          price: 32990,
+          price: 39990,
         },
       },
     ],
@@ -203,7 +203,7 @@ const CATEGORY_DETAILS = {
           description:
             "Plancha de zinc galvanizado ideal para techumbres residenciales e industriales.",
           images: "/images/zinc_acanalado.webp",
-          price: 19990,
+          price: 11490,
         },
       },
       {
@@ -223,7 +223,7 @@ const CATEGORY_DETAILS = {
           description:
             "Plancha Zincalum ondulada tipo 5V, ideal para techumbres residenciales y estructuras livianas.",
           images: "/images/plancha_zinc_0.35x2.5.webp",
-          price: 16990,
+          price: 7290,
         },
       },
     ],
@@ -254,7 +254,7 @@ const CATEGORY_DETAILS = {
           description:
             "Pellets de madera premium para estufas a combustión, alta eficiencia y bajo residuo.",
           images: "/images/pellet.jpg",
-          price: 6990,
+          price: 3990,
         },
       },
     ],
@@ -438,7 +438,7 @@ const CategoryPage = ({ addToCart }) => {
                     {categoryId === "jardin" && sub.id === "pellets" && (
                       <img
                         src="/images/pellets.jpg"
-                        alt="Plancha Zinc"
+                        alt="pellet"
                         className="w-full h-full object-cover"
                       />
                     )}
