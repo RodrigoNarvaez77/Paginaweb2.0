@@ -56,13 +56,46 @@ const Header = () => {
   ];
 
   const searchIndex = [
+    // Cemento
     {
-      keywords: ["cemento", "polpaico"],
+      keywords: ["cemento", "polpaico", "biobio"],
       path: "/categorias/obra-gruesa/cemento",
     },
+
+    // Rejas / Perímetro (alambre de púas)
+    {
+      keywords: ["alambre", "pua", "púas", "motto", "inchalam", "perimetro"],
+      path: "/categorias/obra-gruesa/rejas-perimetro",
+    },
+
+    // Plancha Zinc
     {
       keywords: ["zinc", "plancha", "zincalum"],
       path: "/categorias/techos/plancha-zinc",
+    },
+
+    // Pellets
+    {
+      keywords: ["pellet", "pellets", "combustion"],
+      path: "/categorias/jardin/pellets",
+    },
+
+    // Terciados
+    {
+      keywords: ["terciado", "terciados", "colonial", "ranurado"],
+      path: "/categorias/estructuras/terciados",
+    },
+
+    // Fibrocemento
+    {
+      keywords: ["fibrocemento", "fibra", "placa exterior"],
+      path: "/categorias/estructuras/fibrocemento",
+    },
+
+    // Volcanita
+    {
+      keywords: ["volcanita", "yeso", "carton", "volcan"],
+      path: "/categorias/estructuras/volcanita",
     },
   ];
 
@@ -108,7 +141,10 @@ const Header = () => {
                 <span>Ingresa tu ubicación</span>
               </button>
 
-              <button className="p-2 rounded-md hover:bg-gray-100">
+              <button
+                className="p-2 rounded-md hover:bg-gray-100"
+                onClick={() => navigate("/carrito")}
+              >
                 <FiShoppingCart className="text-xl text-gray-900" />
               </button>
             </div>
