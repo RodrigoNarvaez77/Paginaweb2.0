@@ -59,7 +59,30 @@ const SUBCATEGORY_DATA = {
         },
       ],
     },
+    "rejas-perimetro": {
+      title: "Rejas / Perímetro",
+      products: [
+        {
+          id: "alambre-puas-motto-275mt",
+          name: "Alambre Púas Motto 16 BWG Rollo 275 MT",
+          brand: "Inchalám",
+          type: "Alambre de púas",
+          warranty: "12 meses",
+          color: "Plateado",
+          material: "Acero galvanizado",
+          model: "Motto 16 BWG",
+          measures: "Rollo 275 m",
+          thickness: "16 BWG",
+          piecesPerPallet: "N/A",
+          description:
+            "Alambre de púas Inchalám Motto 16 BWG, rollo de 275 metros, ideal para cercos perimetrales, protección de terrenos y faenas.",
+          images: "/images/alambre_de_puas_motto.webp",
+          price: 39990,
+        },
+      ],
+    },
   },
+
   techos: {
     "plancha-zinc": {
       title: "Plancha Zinc",

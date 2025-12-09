@@ -112,7 +112,7 @@ const CATEGORY_DETAILS = {
       { id: "cemento", label: "Cemento" },
       { id: "hormigon", label: "Hormigón" },
       { id: "bloques", label: "Bloques" },
-      { id: "rejas", label: "Rejas / Perímetro" },
+      { id: "rejas-perimetro", label: "Rejas / Perímetro" },
     ],
     highlights: [
       {
