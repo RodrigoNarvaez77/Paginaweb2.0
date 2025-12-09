@@ -14,9 +14,9 @@ const CATEGORY_DETAILS = {
   estructuras: {
     title: "Estructuras",
     subcategories: [
-      { id: "acero", label: "Acero" },
-      { id: "metalcon", label: "Metalcon" },
-      { id: "volcometal", label: "Volcometal" },
+      { id: "volcanita", label: "Volcanita / Yeso Cartón" },
+      { id: "terciados", label: "Terciados / Tableros de madera" },
+      { id: "fibrocemento", label: "Fibrocemento" },
       { id: "maderas", label: "Maderas" },
     ],
     highlights: [
@@ -45,7 +45,7 @@ const CATEGORY_DETAILS = {
         id: "terciado",
         product: {
           id: "terciado-ran-colonial-9mm",
-          name: "Terc Ran Colonial 9 MM 1.22 X 2.44 (108 PL)",
+          name: "Terciado Ran Colonial 9 MM 1.22 X 2.44 (108 PL)",
           brand: "Colonial",
           type: "Terciado ranurado",
           warranty: "N/A",
@@ -344,7 +344,7 @@ const CATEGORY_DETAILS = {
         id: "plancha-zinc",
         product: {
           id: "PL. ZINCALUM AC 0.35 X 3.66 MT",
-          name: "Pl. Zincalum AC 0.35 X 3.66 MT",
+          name: "Plancha Zincalum AC 0.35 X 3.66 MT",
           brand: "Zincalum",
           type: "Plancha para techumbre",
           warranty: "12 meses",
@@ -364,7 +364,7 @@ const CATEGORY_DETAILS = {
         id: "plancha-zinc",
         product: {
           id: "pl-zincalum-5v-0.35-2.5mt",
-          name: "PL. Zincalum 5V 0.35 X 2.5 MT",
+          name: "Plancha Zincalum 5V 0.35 X 2.5 MT",
           brand: "Zincalum",
           type: "Plancha para techumbre",
           warranty: "12 meses",
@@ -384,7 +384,7 @@ const CATEGORY_DETAILS = {
         id: "teja-continua",
         product: {
           id: "teja-continua-aysen-pro-negro",
-          name: "Teja Cont. Aysen Pro 0.4 X 1.157 X 3.775 Negro",
+          name: "Teja Continua Aysen Pro 0.4 X 1.157 X 3.775",
           brand: "Aysén Pro",
           type: "Teja continua metálica",
           warranty: "Garantía del fabricante",
@@ -656,6 +656,36 @@ const CategoryPage = ({ addToCart }) => {
                         className="w-full h-full object-cover"
                       />
                     )}
+                    {categoryId === "obra-gruesa" &&
+                      sub.id === "rejas-perimetro" && (
+                        <img
+                          src="/images/alambre_de_puas_motto.webp"
+                          alt="Plancha Zinc"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    {categoryId === "estructuras" && sub.id === "volcanita" && (
+                      <img
+                        src="/images/volcanita.jpeg"
+                        alt="Plancha Zinc"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    {categoryId === "estructuras" && sub.id === "terciados" && (
+                      <img
+                        src="/images/terciado.webp"
+                        alt="Plancha Zinc"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    {categoryId === "estructuras" &&
+                      sub.id === "fibrocemento" && (
+                        <img
+                          src="/images/fibrocemento.webp"
+                          alt="Plancha Zinc"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                   </div>
 
                   <span className="text-sm md:text-base italic">
