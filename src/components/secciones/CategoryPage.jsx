@@ -86,8 +86,8 @@ const CATEGORY_DETAILS = {
       {
         id: "fibrocemento",
         product: {
-          id: "fibrocemento-standard-120x240x6",
-          name: "Fibrocemento Standard 120 x 240 x 6 mm",
+          id: "fibrocemento-standard-120x240x8",
+          name: "Fibrocemento Standard 120 x 240 x 8 mm",
           brand: "Standard",
           type: "Placa de fibrocemento para tabiquería",
           warranty: "Garantía del fabricante",
