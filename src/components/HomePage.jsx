@@ -57,6 +57,7 @@ const HomePage = () => {
         https://api.emailjs.com
         https://cotizador-k8g4.onrender.com
         https://nodejsasistentevirtual-1.onrender.com
+        https://carritodecompras-aqgw.onrender.com/api/webpay/retorno
         https://carritodecompras-aqgw.onrender.com/api/cart/checkout;
       img-src 'self' https: data:;
       script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com;
